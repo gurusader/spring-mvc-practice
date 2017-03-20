@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="#{jdbc.driver}"/>
@@ -15,8 +20,8 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:persistence/mybatis-config.xml"/>
-		<property name="mapperLocations" value="classpath:persistence/*mapper.xml"/>
+		<property name="configLocation" value="classpath:/persistence/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:/persistence/*mapper.xml"/>
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
@@ -25,6 +30,6 @@
 
 	<context:component-scan base-package="com.gurusader.springmvc.persistence"/>
 
-	<util:properties id="jdbc" location="classpath:database/jdbc.properties"/>
-	<util:properties id="mybatis" location="classpath:persistence/mybatis.properties"/>
+	<util:properties id="jdbc" location="classpath:/database/jdbc.properties"/>
+	<util:properties id="mybatis" location="classpath:/persistence/mybatis.properties"/>
 </beans>
