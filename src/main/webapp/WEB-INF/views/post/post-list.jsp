@@ -43,7 +43,7 @@
 		<c:forEach var="postVo" items="${postList}">
 			<tr>
 				<td>${postVo.postNo}</td>
-				<td>${postVo.postTitle}</td>
+				<td><a href="showPost?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
 				<td>${postVo.postWriter}</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRegDate}"/></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRevDate}"/></td>
