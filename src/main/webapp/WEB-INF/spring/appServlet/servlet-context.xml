@@ -29,6 +29,4 @@
 	</beans:bean>
 
 	<context:component-scan base-package="com.gurusader.springmvc"/>
-
-	<util:properties id="jdbc" location="classpath:database/jdbc.properties"/>
 </beans:beans>
