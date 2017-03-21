@@ -52,7 +52,7 @@
 		</c:forEach>
 	</table>
 
-	<a href="writePost">write post</a>
+	<a href="showWritePostForm">write post</a>
 </body>
 
 </html>

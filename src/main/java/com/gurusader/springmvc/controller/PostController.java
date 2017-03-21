@@ -18,17 +18,31 @@ public class PostController {
 	private PostService postService;
 
 	@RequestMapping(value = "showPostList", method = RequestMethod.GET)
-	public void showPostList(Model model) {
+	public String showPostList(Model model) {
 		model.addAttribute("postList", postService.getPostList());
+		return "post/post-list";
 	}
 
-	@RequestMapping(value = "writePost", method = RequestMethod.GET)
-	public void writePost() {
+	@RequestMapping(value = "showWritePostForm", method = RequestMethod.GET)
+	public String showWritePostForm() {
+		return "post/write-post-form";
 	}
 
 	@RequestMapping(value = "writePost", method = RequestMethod.POST)
 	public String writePost(PostVo postVo, RedirectAttributes redirectAttributes) {
 		postService.writePost(postVo);
+		return "redirect:showPostList";
+	}
+
+	@RequestMapping(value = "showPost", method = RequestMethod.GET)
+	public String showPost(int postNo, Model model) {
+		model.addAttribute(postService.getPost(postNo));
+		return "post/post-detail";
+	}
+
+	@RequestMapping(value = "deletePost", method = RequestMethod.POST)
+	public String deletePost(int postNo) {
+		postService.deletePost(postNo);
 		return "redirect:showPostList";
 	}
 }
