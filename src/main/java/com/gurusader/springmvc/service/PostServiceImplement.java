@@ -39,4 +39,9 @@ public class PostServiceImplement implements PostService {
 	public int deletePost(int postNo) {
 		return postDao.deletePost(postNo);
 	}
+
+	@Override
+	public int countTotalPosts() {
+		return postDao.countTotalPosts();
+	}
 }

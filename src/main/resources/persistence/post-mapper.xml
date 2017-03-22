@@ -31,4 +31,9 @@
 		DELETE FROM post
 		WHERE postNo = #{postNo}
 	</delete>
+
+	<select id="countTotalPosts" resultType="int">
+		SELECT count(postNo)
+		FROM post
+	</select>
 </mapper>

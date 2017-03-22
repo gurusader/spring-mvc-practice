@@ -11,4 +11,5 @@ public interface PostDao {
 	PostVo getPost(int poNo);
 	int revisePost(PostVo postVo);
 	int deletePost(int poNo);
+	int countTotalPosts();
 }

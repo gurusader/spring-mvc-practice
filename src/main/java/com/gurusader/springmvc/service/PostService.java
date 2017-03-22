@@ -11,4 +11,5 @@ public interface PostService {
 	PostVo getPost(int postNo);
 	int revisePost(PostVo postVo);
 	int deletePost(int postNo);
+	int countTotalPosts();
 }

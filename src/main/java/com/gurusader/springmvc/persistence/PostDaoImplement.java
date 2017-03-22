@@ -43,4 +43,9 @@ public class PostDaoImplement implements PostDao {
 	public int deletePost(int postNo) {
 		return sqlSession.delete(namespace + ".deletePost", postNo);
 	}
+
+	@Override
+	public int countTotalPosts() {
+		return sqlSession.selectOne(namespace + ".countTotalPosts");
+	}
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gurusader.springmvc.domain.PageCriteria;
+import com.gurusader.springmvc.domain.PageMaker;
 import com.gurusader.springmvc.domain.PostVo;
 import com.gurusader.springmvc.service.PostService;
 
@@ -18,8 +20,9 @@ public class PostController {
 	private PostService postService;
 
 	@RequestMapping(value = "showPostList", method = RequestMethod.GET)
-	public String showPostList(Model model) {
-		model.addAttribute("postList", postService.getPostList());
+	public String showPostList(PageCriteria pageCriteria, Model model) {
+		model.addAttribute("postList", postService.getPostList(pageCriteria));
+		model.addAttribute("pageMaker", new PageMaker(pageCriteria, postService.countTotalPosts()));
 		return "post/post-list";
 	}
 

@@ -36,7 +36,6 @@
 						<th>title</th>
 						<th>writer</th>
 						<th>reg date</th>
-						<th>rev date</th>
 						<th>view count</th>
 					</tr>
 
@@ -46,11 +45,36 @@
 							<td><a href="showPostDetail?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
 							<td>${postVo.postWriter}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRegDate}"/></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRevDate}"/></td>
 							<td>${postVo.postViewCnt}</td>
 						</tr>
 					</c:forEach>
 				</table>
+
+				<nav class="text-center">
+					<ul class="pagination">
+						<c:if test="${pageMaker.pre}">
+							<li>
+								<a href="showPostList?currentPageNo=${pageMaker.firstPageNo - 1}">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+							</li>
+						</c:if>
+	
+						<c:forEach var="i" begin="${pageMaker.firstPageNo}" end="${pageMaker.lastPageNo}">
+							<li class="${i == pageMaker.pageCriteria.currentPageNo ? 'active' : ''}">
+								<a href="showPostList?currentPageNo=${i}">${i}</a>
+							</li>
+						</c:forEach>
+	
+						<c:if test="${pageMaker.next}">
+							<li>
+								<a href="showPostList?currentPageNo=${pageMaker.lastPageNo + 1}">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
 
 				<a href="showPostWritingForm" class="btn btn-primary">write post</a>
 			</div>
