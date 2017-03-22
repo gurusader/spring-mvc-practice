@@ -1,15 +1,19 @@
 package com.gurusader.springmvc.domain;
 
 public class PageCriteria {
+	private static final int DEFAULT_PAGE_NO = 1;
+	private static final int DEFAULT_CONTENTS_PER_PAGE = 10;
+	private static final int MAX_CONTENTS_PER_PAGE = 100;
+
 	private int currentPageNo;
 	private int contentsPerPage;
 
 	public PageCriteria() {
-		this(1, 10);
+		this(DEFAULT_PAGE_NO, DEFAULT_CONTENTS_PER_PAGE);
 	}
 
 	public PageCriteria(int currentPageNo) {
-		this(currentPageNo, 10);
+		this(currentPageNo, DEFAULT_CONTENTS_PER_PAGE);
 	}
 
 	public PageCriteria(int currentPageNo, int contentsPerPage) {
@@ -23,7 +27,7 @@ public class PageCriteria {
 
 	public void setCurrentPageNo(int currentPageNo) {
 		if (currentPageNo <= 0) {
-			currentPageNo = 1;
+			currentPageNo = DEFAULT_PAGE_NO;
 		}
 
 		this.currentPageNo = currentPageNo;
@@ -34,8 +38,8 @@ public class PageCriteria {
 	}
 
 	public void setContentsPerPage(int contentsPerPage) {
-		if (contentsPerPage <= 0 || contentsPerPage > 100) {
-			contentsPerPage = 10;
+		if (contentsPerPage <= 0 || contentsPerPage > MAX_CONTENTS_PER_PAGE) {
+			contentsPerPage = DEFAULT_CONTENTS_PER_PAGE;
 		}
 
 		this.contentsPerPage = contentsPerPage;

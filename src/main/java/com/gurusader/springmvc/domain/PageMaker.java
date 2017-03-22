@@ -1,6 +1,8 @@
 package com.gurusader.springmvc.domain;
 
 public class PageMaker {
+	private static final int DEFAULT_PAGES_PER_PAGINATION = 10;
+
 	private PageCriteria pageCriteria;
 	private int totalContents;
 	private int pagesPerPagination;
@@ -14,7 +16,7 @@ public class PageMaker {
 	public PageMaker(PageCriteria pageCriteria, int totalContents) {
 		this.pageCriteria = pageCriteria;
 		this.totalContents = totalContents;
-		pagesPerPagination = 10;
+		pagesPerPagination = DEFAULT_PAGES_PER_PAGINATION;
 
 		calPageNo();
 	}
@@ -54,6 +56,7 @@ public class PageMaker {
 
 	public void setPagesPerPagination(int pagesPerPagination) {
 		this.pagesPerPagination = pagesPerPagination;
+		calPageNo();
 	}
 
 	public int getFirstPageNo() {
