@@ -23,9 +23,9 @@ public class PostController {
 		return "post/post-list";
 	}
 
-	@RequestMapping(value = "showWritePostForm", method = RequestMethod.GET)
+	@RequestMapping(value = "showPostWritingForm", method = RequestMethod.GET)
 	public String showWritePostForm() {
-		return "post/write-post-form";
+		return "post/post-writing-form";
 	}
 
 	@RequestMapping(value = "writePost", method = RequestMethod.POST)
@@ -34,10 +34,23 @@ public class PostController {
 		return "redirect:showPostList";
 	}
 
-	@RequestMapping(value = "showPost", method = RequestMethod.GET)
-	public String showPost(int postNo, Model model) {
-		model.addAttribute(postService.getPost(postNo));
+	@RequestMapping(value = "showPostDetail", method = RequestMethod.GET)
+	public String showPostDetail(int postNo, Model model) {
+		model.addAttribute("postVo", postService.getPost(postNo));
 		return "post/post-detail";
+	}
+
+	@RequestMapping(value = "showPostRevisingForm", method = RequestMethod.GET)
+	public String showRevisePostForm(int postNo, Model model) {
+		model.addAttribute("postVo", postService.getPost(postNo));
+		return "post/post-revising-form";
+	}
+
+	@RequestMapping(value = "revisePost", method = RequestMethod.POST)
+	public String revisePost(PostVo postVo, Model model) {
+		postService.revisePost(postVo);
+		model.addAttribute("postNo", postVo.getPostNo());
+		return "redirect:showPostDetail";
 	}
 
 	@RequestMapping(value = "deletePost", method = RequestMethod.POST)

@@ -12,7 +12,7 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>show post</title>
+	<title>${postVo.postTitle}</title>
 
 	<link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css"/>"/>
 	<script src="<c:url value="/webjars/jquery/3.2.0/dist/jquery.min.js"/>"></script>
@@ -21,36 +21,39 @@
 
 <body>
 	<div class="container-fluid">
-		<h3>show post</h3>
+		<div class="row">
+			<div class="col-md-2"></div>
 
-		<form>
-			<div class="form-group">
-				<label>title<input type="text" name="postTitle" class="form-control" value="${postVo.postTitle}" readonly="readonly"/></label><br/>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">${postVo.postTitle}</div>
+
+					<div class="panel-body">
+						${postVo.postWriter}
+						<hr/>
+						${postVo.postText}
+					</div>
+				</div>
+
+				<a href="showPostRevisingForm?postNo=${postVo.postNo}" class="btn btn-primary">revise post</a>
+				<button type="button" id="deletePostButton" class="btn btn-danger">delete post</button>
+				<a href="showPostList" class="btn btn-warning pull-right">show post list</a>
 			</div>
 
-			<div class="form-group">
-				<label>text<input type="text" name="postText" class="form-control" value="${postVo.postText}" readonly="readonly"/></label><br/>
-			</div>
-
-			<div class="form-group">
-				<label>writer<input type="text" name="postWriter" class="form-control" value="${postVo.postWriter}" readonly="readonly"/></label><br/>
-			</div>
-		</form>
-
-		<button type="button" id="deletePostButton" class="btn btn-danger">delete post</button>
+			<div class="col-md-2"></div>
+		</div>
 	</div>
-
-	<form id="varForm">
-		<input type="hidden" name="postNo" value="${postVo.postNo}"/>
-	</form>
 
 	<script>
 		$(document).ready(function(){
-			var varForm = $("#varForm");
-
 			$("#deletePostButton").on("click", function () {
-				varForm.attr({action: "deletePost", method: "post"});
-				varForm.submit();
+				if(confirm("delete post?")) {
+					var form = $("<form></form>");
+					form.attr({action: "deletePost", method: "post"});
+					form.append($("<input type='hidden' name='postNo' value='${postVo.postNo}'/>"));
+					form.appendTo("body");
+					form.submit();
+				}
 			});
 		});
 	</script>

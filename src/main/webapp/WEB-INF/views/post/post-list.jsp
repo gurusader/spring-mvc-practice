@@ -13,7 +13,7 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>show post list</title>
+	<title>post list</title>
 
 	<link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css"/>"/>
 	<script src="<c:url value="/webjars/jquery/3.2.0/dist/jquery.min.js"/>"></script>
@@ -27,7 +27,7 @@
 
 			<div class="col-md-8">
 				<header>
-					<h3>show post list</h3>
+					<h3>post list</h3>
 				</header>
 
 				<table class="table table-condensed">
@@ -43,7 +43,7 @@
 					<c:forEach var="postVo" items="${postList}">
 						<tr>
 							<td>${postVo.postNo}</td>
-							<td><a href="showPost?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
+							<td><a href="showPostDetail?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
 							<td>${postVo.postWriter}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRegDate}"/></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRevDate}"/></td>
@@ -52,7 +52,7 @@
 					</c:forEach>
 				</table>
 
-				<a href="showWritePostForm" class="btn btn-primary">write post</a>
+				<a href="showPostWritingForm" class="btn btn-primary">write post</a>
 			</div>
 
 			<div class="col-md-2"></div>
