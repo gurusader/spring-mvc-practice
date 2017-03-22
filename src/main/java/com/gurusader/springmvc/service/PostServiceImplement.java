@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.PostVo;
 import com.gurusader.springmvc.persistence.PostDao;
 
@@ -15,6 +16,11 @@ public class PostServiceImplement implements PostService {
 	private PostDao postDao;
 
 	@Override
+	public List<PostVo> getPostList(PageCriteria pageCriteria) {
+		return postDao.getPostList(pageCriteria);
+	}
+
+	@Override
 	public int writePost(PostVo postVo) {
 		return postDao.writePost(postVo);
 	}
@@ -22,11 +28,6 @@ public class PostServiceImplement implements PostService {
 	@Override
 	public PostVo getPost(int postNo) {
 		return postDao.getPost(postNo);
-	}
-
-	@Override
-	public List<PostVo> getPostList() {
-		return postDao.getPostList();
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.PostVo;
 
 @Repository
@@ -19,6 +20,11 @@ public class PostDaoImplement implements PostDao {
 	private SqlSession sqlSession;
 
 	@Override
+	public List<PostVo> getPostList(PageCriteria pageCriteria) {
+		return sqlSession.selectList(namespace + ".getPostList", pageCriteria);
+	}
+
+	@Override
 	public int writePost(PostVo postVo) {
 		return sqlSession.insert(namespace + ".writePost", postVo);
 	}
@@ -26,11 +32,6 @@ public class PostDaoImplement implements PostDao {
 	@Override
 	public PostVo getPost(int postNo) {
 		return sqlSession.selectOne(namespace + ".getPost", postNo);
-	}
-
-	@Override
-	public List<PostVo> getPostList() {
-		return sqlSession.selectList(namespace + ".getPostList");
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.gurusader.springmvc.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -7,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.PostVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -14,6 +17,14 @@ import com.gurusader.springmvc.domain.PostVo;
 public class PostDaoTest {
 	@Inject
 	private PostDao postDao;
+
+	@Test
+	public void testGetPostList() {
+		List<PostVo> postList = postDao.getPostList(new PageCriteria());
+		for (PostVo postVo : postList) {
+			System.out.println(postVo);
+		}
+	}
 
 	@Test
 	public void testWritePost() {

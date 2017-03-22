@@ -3,6 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gurusader.springmvc.persistence.PostMapper">
+	<select id="getPostList" resultType="PostVo">
+		SELECT *
+		FROM post
+		ORDER BY postNo DESC
+		LIMIT #{firstContentNo}, #{contentsPerPage}
+	</select>
+
 	<insert id="writePost">
 		INSERT INTO post (postTitle, postText, postWriter)
 		VALUES (#{postTitle}, #{postText}, #{postWriter})
@@ -12,12 +19,6 @@
 		SELECT *
 		FROM post
 		WHERE postNo = #{postNo}
-	</select>
-
-	<select id="getPostList" resultType="PostVo">
-		SELECT *
-		FROM post
-		ORDER BY postNo DESC
 	</select>
 
 	<update id="revisePost">
