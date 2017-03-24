@@ -10,13 +10,15 @@
 
 <head>
 	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 	<title>post writing form</title>
 
 	<link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css"/>"/>
 	<script src="<c:url value="/webjars/jquery/3.2.0/dist/jquery.min.js"/>"></script>
 	<script src="<c:url value="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js"/>"></script>
+
+	<script src="<c:url value='/resources/js/move.js'/>"></script>
 </head>
 
 <body>
@@ -37,9 +39,22 @@
 			</div>
 
 			<button type="submit" class="btn btn-primary">submit</button>
-			<a href="showPostList" class="btn btn-warning">cancel</a>
-	  </form>
+			<button type="button" id="cancel-btn" class="btn btn-warning">cancel</button>
+		</form>
 	</div>
+
+	<form id="varForm">
+		<input type="hidden" name="currentPageNo" value="${pageCriteria.currentPageNo}"/>
+		<input type="hidden" name="contentsPerPage" value="${pageCriteria.contentsPerPage}"/>
+	</form>
+
+	<script>
+		$(function() {
+			$("#cancel-btn").on("click", function() {
+				doSubmit($("#varForm"), {action: "showPostList"});
+			});
+		});
+	</script>
 </body>
 
 </html>

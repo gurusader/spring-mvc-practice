@@ -1,11 +1,10 @@
 package com.gurusader.springmvc.domain;
 
 public class PageMaker {
-	private static final int DEFAULT_PAGES_PER_PAGINATION = 10;
+	private static final int PAGES_PER_PAGINATION = 10;
 
 	private PageCriteria pageCriteria;
 	private int totalContents;
-	private int pagesPerPagination;
 
 	private int firstPageNo;
 	private int lastPageNo;
@@ -16,14 +15,13 @@ public class PageMaker {
 	public PageMaker(PageCriteria pageCriteria, int totalContents) {
 		this.pageCriteria = pageCriteria;
 		this.totalContents = totalContents;
-		pagesPerPagination = DEFAULT_PAGES_PER_PAGINATION;
 
 		calPageNo();
 	}
 
 	private void calPageNo() {
-		lastPageNo = (int) (Math.ceil((double) pageCriteria.getCurrentPageNo() / pagesPerPagination) * pagesPerPagination);
-		firstPageNo = lastPageNo - pagesPerPagination + 1;
+		lastPageNo = (int) (Math.ceil((double) pageCriteria.getCurrentPageNo() / PAGES_PER_PAGINATION) * PAGES_PER_PAGINATION);
+		firstPageNo = lastPageNo - PAGES_PER_PAGINATION + 1;
 
 		int temporary = (int) (Math.ceil((double) totalContents / pageCriteria.getContentsPerPage()));
 		if (lastPageNo > temporary) {
@@ -48,15 +46,6 @@ public class PageMaker {
 
 	public void setTotalContents(int totalContents) {
 		this.totalContents = totalContents;
-	}
-
-	public int getPagesPerPagination() {
-		return pagesPerPagination;
-	}
-
-	public void setPagesPerPagination(int pagesPerPagination) {
-		this.pagesPerPagination = pagesPerPagination;
-		calPageNo();
 	}
 
 	public int getFirstPageNo() {

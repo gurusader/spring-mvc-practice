@@ -10,14 +10,16 @@
 <html>
 
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<title>post list</title>
+
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 	<link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css"/>"/>
 	<script src="<c:url value="/webjars/jquery/3.2.0/dist/jquery.min.js"/>"></script>
 	<script src="<c:url value="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js"/>"></script>
+
+	<script src="<c:url value='/resources/js/move.js'/>"></script>
 </head>
 
 <body>
@@ -39,10 +41,10 @@
 						<th>view count</th>
 					</tr>
 
-					<c:forEach var="postVo" items="${postList}">
+					<c:forEach var="postVo" items="${postVoList}">
 						<tr>
 							<td>${postVo.postNo}</td>
-							<td><a href="showPostDetail?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
+							<td><a href="${postVo.postNo}" class="link post-detail-link">${postVo.postTitle}</a></td>
 							<td>${postVo.postWriter}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${postVo.postRegDate}"/></td>
 							<td>${postVo.postViewCnt}</td>
@@ -54,7 +56,7 @@
 					<ul class="pagination">
 						<c:if test="${pageMaker.pre}">
 							<li>
-								<a href="showPostList?currentPageNo=${pageMaker.firstPageNo - 1}">
+								<a href="${pageMaker.firstPageNo - 1}" class="link page-link">
 									<span class="glyphicon glyphicon-chevron-left"></span>
 								</a>
 							</li>
@@ -62,13 +64,13 @@
 	
 						<c:forEach var="i" begin="${pageMaker.firstPageNo}" end="${pageMaker.lastPageNo}">
 							<li class="${i == pageMaker.pageCriteria.currentPageNo ? 'active' : ''}">
-								<a href="showPostList?currentPageNo=${i}">${i}</a>
+								<a href="${i}" class="link page-link">${i}</a>
 							</li>
 						</c:forEach>
 	
 						<c:if test="${pageMaker.next}">
 							<li>
-								<a href="showPostList?currentPageNo=${pageMaker.lastPageNo + 1}">
+								<a href="${pageMaker.lastPageNo + 1}" class="link page-link">
 									<span class="glyphicon glyphicon-chevron-right"></span>
 								</a>
 							</li>
@@ -76,12 +78,43 @@
 					</ul>
 				</nav>
 
-				<a href="showPostWritingForm" class="btn btn-primary">write post</a>
+				<button id="write-post-btn" class="btn btn-primary">write post</button>
 			</div>
 
 			<div class="col-md-2"></div>
 		</div>
 	</div>
+
+	<form id="varForm">
+		<input type="hidden" name="postNo"/>
+		<input type="hidden" name="currentPageNo"/>
+		<input type="hidden" name="contentsPerPage" value="${pageMaker.pageCriteria.contentsPerPage}"/>
+	</form>
+
+	<script>
+		
+		$(function() {
+			var varForm = $("#varForm");
+
+			$("a.post-detail-link").on("click", function() {
+				varForm.children("input[name=postNo]").val($(this).attr("href"));
+				varForm.children("input[name=currentPageNo]").val("${pageMaker.pageCriteria.currentPageNo}");
+				doSubmit(varForm, {action : "showPostDetail"});
+			});
+
+			$("a.page-link").on("click", function() {
+				varForm.children("input[name=postNo]").remove();
+				varForm.children("input[name=currentPageNo]").val($(this).attr("href"));
+				doSubmit(varForm, {action : "showPostList"});
+			});
+
+			$("#write-post-btn").on("click", function() {
+				varForm.children("input[name=postNo]").remove();
+				varForm.children("input[name=currentPageNo]").val("${pageMaker.pageCriteria.currentPageNo}");
+				doSubmit(varForm, {action : "showPostWritingForm"});
+			});
+		});
+	</script>
 </body>
 
 </html>
