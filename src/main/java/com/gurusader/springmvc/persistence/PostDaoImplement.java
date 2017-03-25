@@ -25,6 +25,11 @@ public class PostDaoImplement implements PostDao {
 	}
 
 	@Override
+	public List<PostVo> getSearchList(PageCriteria pageCriteria) {
+		return sqlSession.selectList(namespace + ".getSearchList", pageCriteria);
+	}
+
+	@Override
 	public int writePost(PostVo postVo) {
 		return sqlSession.insert(namespace + ".writePost", postVo);
 	}
@@ -47,5 +52,10 @@ public class PostDaoImplement implements PostDao {
 	@Override
 	public int countTotalPosts() {
 		return sqlSession.selectOne(namespace + ".countTotalPosts");
+	}
+
+	@Override
+	public int countTotalSearch(PageCriteria pageCriteria) {
+		return sqlSession.selectOne(namespace + ".countTotalSearch", pageCriteria);
 	}
 }

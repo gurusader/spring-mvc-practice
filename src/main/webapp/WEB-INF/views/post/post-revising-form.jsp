@@ -22,31 +22,39 @@
 </head>
 
 <body>
-	<div class="container-fluid">
-		<h3>post revising form</h3>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<header>
+					<h3>post revising form</h3>
+				</header>
 
-		<form id="revising-form">
-			<div class="form-group">
-				<label>writer<input type="text" name="postWriter" class="form-control" value="${postVo.postWriter}" readonly="readonly"/></label>
+				<form id="revising-form">
+					<div class="form-group">
+						<label>writer<input type="text" name="postWriter" class="form-control" value="${postVo.postWriter}" readonly="readonly"/></label>
+					</div>
+		
+					<div class="form-group">
+						<label>title<input type="text" name="postTitle" class="form-control" value="${postVo.postTitle}"/></label>
+					</div>
+		
+					<div class="form-group">
+						<label>text<textarea name="postText" rows="3" class="form-control">${postVo.postText}</textarea></label>
+					</div>
+		
+					<button type="button" id="submit-btn" class="btn btn-primary">submit</button>
+					<button type="button" id="cancel-btn" class="btn btn-warning">cancel</button>
+				</form>
 			</div>
-
-			<div class="form-group">
-				<label>title<input type="text" name="postTitle" class="form-control" value="${postVo.postTitle}"/></label>
-			</div>
-
-			<div class="form-group">
-				<label>text<textarea name="postText" rows="3" class="form-control">${postVo.postText}</textarea></label>
-			</div>
-
-			<button type="button" id="submit-btn" class="btn btn-primary">submit</button>
-			<button type="button" id="cancel-btn" class="btn btn-warning">cancel</button>
-		</form>
+		</div>
 	</div>
 
 	<form id="var-form">
 		<input type="hidden" name="postNo" value="${postVo.postNo}"/>
-		<input type="hidden" name="currentPageNo" value="${pageCriteria.currentPageNo}"/>
-		<input type="hidden" name="contentsPerPage" value="${pageCriteria.contentsPerPage}"/>
+		<input type="hidden" name="currentPageNo" value="${postPageCriteria.currentPageNo}"/>
+		<input type="hidden" name="contentsPerPage" value="${postPageCriteria.contentsPerPage}"/>
+		<input type="hidden" name="searchType" value="${postPageCriteria.searchType}"/>
+		<input type="hidden" name="searchKeyword" value="${postPageCriteria.searchKeyword}"/>
 	</form>
 
 	<script>

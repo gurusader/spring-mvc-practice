@@ -22,11 +22,9 @@
 </head>
 
 <body>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col-md-2"></div>
-
-			<div class="col-md-8">
+			<div class="col-xs-12">
 				<header>
 					<h3>post detail</h3>
 				</header>
@@ -45,15 +43,15 @@
 				<button type="button" id="del-post-btn" class="btn btn-danger">delete post</button>
 				<button type="button" id="show-post-list-btn" class="btn btn-warning pull-right">show post list</button>
 			</div>
-
-			<div class="col-md-2"></div>
 		</div>
 	</div>
 
 	<form id="varForm">
 		<input type="hidden" name="postNo" value="${postVo.postNo}"/>
-		<input type="hidden" name="currentPageNo" value="${pageCriteria.currentPageNo}"/>
-		<input type="hidden" name="contentsPerPage" value="${pageCriteria.contentsPerPage}"/>
+		<input type="hidden" name="currentPageNo" value="${postPageCriteria.currentPageNo}"/>
+		<input type="hidden" name="contentsPerPage" value="${postPageCriteria.contentsPerPage}"/>
+		<input type="hidden" name="searchType" value="${postPageCriteria.searchType}"/>
+		<input type="hidden" name="searchKeyword" value="${postPageCriteria.searchKeyword}"/>
 	</form>
 
 	<script>

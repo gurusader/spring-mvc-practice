@@ -10,6 +10,15 @@
 		LIMIT #{firstContentNo}, #{contentsPerPage}
 	</select>
 
+	<select id="getSearchList" resultType="PostVo">
+		SELECT *
+		FROM post
+		WHERE postNo > 0
+		<include refid="searchQuery"/>
+		ORDER BY postNo DESC
+		LIMIT #{firstContentNo}, #{contentsPerPage}
+	</select>
+
 	<insert id="writePost">
 		INSERT INTO post (postTitle, postText, postWriter)
 		VALUES (#{postTitle}, #{postText}, #{postWriter})
@@ -36,4 +45,25 @@
 		SELECT count(postNo)
 		FROM post
 	</select>
+
+	<select id="countTotalSearch" resultType="int">
+		SELECT count(postNo)
+		FROM post
+		WHERE postNo > 0
+		<include refid="searchQuery"/>
+	</select>
+
+	<sql id="searchQuery">
+		<if test="searchType != null">
+			<if test="searchType == 'title'">
+				AND postTitle LIKE concat('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'text'">
+				AND postText LIKE concat('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'writer'">
+				AND postWriter LIKE concat('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+	</sql>
 </mapper>

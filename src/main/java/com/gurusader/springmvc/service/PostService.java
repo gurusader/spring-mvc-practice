@@ -7,9 +7,11 @@ import com.gurusader.springmvc.domain.PostVo;
 
 public interface PostService {
 	List<PostVo> getPostList(PageCriteria pageCriteria);
+	List<PostVo> getSearchList(PageCriteria pageCriteria);
 	int writePost(PostVo postVo);
 	PostVo getPost(int postNo);
 	int revisePost(PostVo postVo);
 	int deletePost(int postNo);
 	int countTotalPosts();
+	int countTotalSearch(PageCriteria pageCriteria);
 }

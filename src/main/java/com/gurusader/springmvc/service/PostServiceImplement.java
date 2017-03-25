@@ -21,6 +21,11 @@ public class PostServiceImplement implements PostService {
 	}
 
 	@Override
+	public List<PostVo> getSearchList(PageCriteria pageCriteria) {
+		return postDao.getSearchList(pageCriteria);
+	}
+
+	@Override
 	public int writePost(PostVo postVo) {
 		return postDao.writePost(postVo);
 	}
@@ -43,5 +48,10 @@ public class PostServiceImplement implements PostService {
 	@Override
 	public int countTotalPosts() {
 		return postDao.countTotalPosts();
+	}
+
+	@Override
+	public int countTotalSearch(PageCriteria pageCriteria) {
+		return postDao.countTotalSearch(pageCriteria);
 	}
 }
