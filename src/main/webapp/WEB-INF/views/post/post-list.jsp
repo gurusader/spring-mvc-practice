@@ -96,14 +96,13 @@
 
 	<form id="var-form">
 		<input type="hidden" name="postNo"/>
-		<input type="hidden" name="currentPageNo" class="page-criteria"/>
+		<input type="hidden" name="currentPageNo" value="${pageMaker.pageCriteria.currentPageNo}" class="page-criteria"/>
 		<input type="hidden" name="contentsPerPage" value="${pageMaker.pageCriteria.contentsPerPage}" class="page-criteria"/>
 		<input type="hidden" name="searchType" value="${pageMaker.pageCriteria.searchType}" class="post-page-criteria"/>
 		<input type="hidden" name="searchKeyword" value="${pageMaker.pageCriteria.searchKeyword}" class="post-page-criteria"/>
 	</form>
 
 	<script>
-		
 		$(function() {
 			var varForm = $("#var-form");
 
@@ -120,7 +119,6 @@
 
 			$("a.post-detail-link").on("click", function() {
 				varForm.children("input[name=postNo]").val($(this).attr("href"));
-				varForm.children("input[name=currentPageNo]").val("${pageMaker.pageCriteria.currentPageNo}");
 				doSubmit(varForm, {action : "showPostDetail"});
 			});
 
