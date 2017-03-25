@@ -3,14 +3,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gurusader.springmvc.persistence.PostMapper">
-	<select id="getPostList" resultType="PostVo">
+	<select id="getAllPostList" resultType="PostVo">
 		SELECT *
 		FROM post
 		ORDER BY postNo DESC
 		LIMIT #{firstContentNo}, #{contentsPerPage}
 	</select>
 
-	<select id="getSearchList" resultType="PostVo">
+	<select id="countAllPosts" resultType="int">
+		SELECT count(postNo)
+		FROM post
+	</select>
+
+	<select id="getSearchPostList" resultType="PostVo">
 		SELECT *
 		FROM post
 		WHERE postNo > 0
@@ -19,16 +24,23 @@
 		LIMIT #{firstContentNo}, #{contentsPerPage}
 	</select>
 
-	<insert id="writePost">
-		INSERT INTO post (postTitle, postText, postWriter)
-		VALUES (#{postTitle}, #{postText}, #{postWriter})
-	</insert>
+	<select id="countSearchPosts" resultType="int">
+		SELECT count(postNo)
+		FROM post
+		WHERE postNo > 0
+		<include refid="searchQuery"/>
+	</select>
 
 	<select id="getPost" resultType="PostVo">
 		SELECT *
 		FROM post
 		WHERE postNo = #{postNo}
 	</select>
+
+	<insert id="writePost">
+		INSERT INTO post (postTitle, postText, postWriter)
+		VALUES (#{postTitle}, #{postText}, #{postWriter})
+	</insert>
 
 	<update id="revisePost">
 		UPDATE post
@@ -40,18 +52,6 @@
 		DELETE FROM post
 		WHERE postNo = #{postNo}
 	</delete>
-
-	<select id="countTotalPosts" resultType="int">
-		SELECT count(postNo)
-		FROM post
-	</select>
-
-	<select id="countTotalSearch" resultType="int">
-		SELECT count(postNo)
-		FROM post
-		WHERE postNo > 0
-		<include refid="searchQuery"/>
-	</select>
 
 	<sql id="searchQuery">
 		<if test="searchType != null">

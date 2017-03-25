@@ -20,10 +20,15 @@ public class PostDaoTest {
 
 	@Test
 	public void testGetPostList() {
-		List<PostVo> postList = postDao.getPostList(new PageCriteria());
+		List<PostVo> postList = postDao.getAllPostList(new PageCriteria());
 		for (PostVo postVo : postList) {
 			System.out.println(postVo);
 		}
+	}
+
+	@Test
+	public void testGetPost() {
+		System.out.println(postDao.getPost(1));
 	}
 
 	@Test
@@ -33,11 +38,6 @@ public class PostDaoTest {
 		postVo.setPostText("내용");
 		postVo.setPostWriter("작성자");
 		postDao.writePost(postVo);
-	}
-
-	@Test
-	public void testGetPost() {
-		System.out.println(postDao.getPost(1));
 	}
 
 	@Test

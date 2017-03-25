@@ -20,23 +20,33 @@ public class PostDaoImplement implements PostDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<PostVo> getPostList(PageCriteria pageCriteria) {
-		return sqlSession.selectList(namespace + ".getPostList", pageCriteria);
+	public List<PostVo> getAllPostList(PageCriteria pageCriteria) {
+		return sqlSession.selectList(namespace + ".getAllPostList", pageCriteria);
 	}
 
 	@Override
-	public List<PostVo> getSearchList(PageCriteria pageCriteria) {
-		return sqlSession.selectList(namespace + ".getSearchList", pageCriteria);
+	public int countAllPosts() {
+		return sqlSession.selectOne(namespace + ".countAllPosts");
 	}
 
 	@Override
-	public int writePost(PostVo postVo) {
-		return sqlSession.insert(namespace + ".writePost", postVo);
+	public List<PostVo> getSearchPostList(PageCriteria pageCriteria) {
+		return sqlSession.selectList(namespace + ".getSearchPostList", pageCriteria);
+	}
+
+	@Override
+	public int countSearchPosts(PageCriteria pageCriteria) {
+		return sqlSession.selectOne(namespace + ".countSearchPosts", pageCriteria);
 	}
 
 	@Override
 	public PostVo getPost(int postNo) {
 		return sqlSession.selectOne(namespace + ".getPost", postNo);
+	}
+
+	@Override
+	public int writePost(PostVo postVo) {
+		return sqlSession.insert(namespace + ".writePost", postVo);
 	}
 
 	@Override
@@ -47,15 +57,5 @@ public class PostDaoImplement implements PostDao {
 	@Override
 	public int deletePost(int postNo) {
 		return sqlSession.delete(namespace + ".deletePost", postNo);
-	}
-
-	@Override
-	public int countTotalPosts() {
-		return sqlSession.selectOne(namespace + ".countTotalPosts");
-	}
-
-	@Override
-	public int countTotalSearch(PageCriteria pageCriteria) {
-		return sqlSession.selectOne(namespace + ".countTotalSearch", pageCriteria);
 	}
 }

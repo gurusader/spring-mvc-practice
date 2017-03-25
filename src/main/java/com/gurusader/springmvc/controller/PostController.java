@@ -14,7 +14,7 @@ import com.gurusader.springmvc.domain.PostVo;
 import com.gurusader.springmvc.service.PostService;
 
 @Controller
-@RequestMapping("/post/")
+@RequestMapping("post/")
 public class PostController {
 	@Inject
 	private PostService postService;
@@ -22,14 +22,20 @@ public class PostController {
 	@RequestMapping(value = "showPostList", method = RequestMethod.GET)
 	public String showPostList(PostPageCriteria postPageCriteria, Model model) {
 		if (postPageCriteria.getSearchType() == null) {
-			model.addAttribute("postVoList", postService.getPostList(postPageCriteria));
-			model.addAttribute("pageMaker", new PageMaker(postPageCriteria, postService.countTotalPosts()));
+			model.addAttribute("postVoList", postService.getAllPostList(postPageCriteria));
+			model.addAttribute("pageMaker", new PageMaker(postPageCriteria, postService.countAllPosts()));
 		} else {
-			model.addAttribute("postVoList", postService.getSearchList(postPageCriteria));
-			model.addAttribute("pageMaker", new PageMaker(postPageCriteria, postService.countTotalSearch(postPageCriteria)));
+			model.addAttribute("postVoList", postService.getSearchPostList(postPageCriteria));
+			model.addAttribute("pageMaker", new PageMaker(postPageCriteria, postService.countSearchPosts(postPageCriteria)));
 		}
 
 		return "post/post-list";
+	}
+
+	@RequestMapping(value = "showPostDetail", method = RequestMethod.GET)
+	public String showPostDetail(int postNo, @ModelAttribute PostPageCriteria postPageCriteria, Model model) {
+		model.addAttribute("postVo", postService.getPost(postNo));
+		return "post/post-detail";
 	}
 
 	@RequestMapping(value = "showPostWritingForm", method = RequestMethod.GET)
@@ -41,12 +47,6 @@ public class PostController {
 	public String writePost(PostVo postVo) {
 		postService.writePost(postVo);
 		return "redirect:showPostList";
-	}
-
-	@RequestMapping(value = "showPostDetail", method = RequestMethod.GET)
-	public String showPostDetail(int postNo, @ModelAttribute PostPageCriteria postPageCriteria, Model model) {
-		model.addAttribute("postVo", postService.getPost(postNo));
-		return "post/post-detail";
 	}
 
 	@RequestMapping(value = "showPostRevisingForm", method = RequestMethod.GET)
