@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gurusader.springmvc.persistence.ReplyMapper">
+	<select id="getAllReplyList" resultType="ReplyVo">
+		SELECT *
+		FROM reply
+		WHERE postNo = #{postNo}
+		ORDER BY replyNo DESC
+		LIMIT #{pageCriteria.firstContentNo}, #{pageCriteria.contentsPerPage}
+	</select>
+
+	<select id="countAllReplies" resultType="int">
+		SELECT count(replyNo)
+		FROM reply
+		WHERE postNo = #{postNo}
+	</select>
+
+	<insert id="writeReply">
+		INSERT INTO reply (postNo, replyText, replyWriter)
+		VALUES (#{postNo}, #{replyText}, #{replyWriter})
+	</insert>
+
+	<update id="reviseReply">
+		UPDATE reply
+		SET replyText = #{replyText}, replyRevDate = #{replyRevDate}
+		WHERE replyNo = #{replyNo}
+	</update>
+
+	<delete id="deleteReply">
+		DELETE FROM reply
+		WHERE replyNo = #{replyNo}
+	</delete>
+</mapper>

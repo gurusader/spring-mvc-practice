@@ -19,7 +19,7 @@ public class PostDaoTest {
 	private PostDao postDao;
 
 	@Test
-	public void testGetPostList() {
+	public void testGetAllPostList() {
 		List<PostVo> postList = postDao.getAllPostList(new PageCriteria());
 		for (PostVo postVo : postList) {
 			System.out.println(postVo);
