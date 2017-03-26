@@ -29,8 +29,12 @@
 					<h3>post detail</h3>
 				</header>
 
-				<div class="panel panel-default">
-					<div class="panel-heading">${postVo.postTitle}</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="panel-title">
+							${postVo.postTitle}
+						</div>
+					</div>
 
 					<div class="panel-body">
 						${postVo.postWriter}
@@ -42,6 +46,8 @@
 				<button type="button" id="rev-post-btn" class="btn btn-primary">revise post</button>
 				<button type="button" id="del-post-btn" class="btn btn-danger">delete post</button>
 				<button type="button" id="show-post-list-btn" class="btn btn-warning pull-right">show post list</button>
+
+				<ul id="reply-list" class="list-group"></ul>
 			</div>
 		</div>
 	</div>
@@ -55,10 +61,10 @@
 	</form>
 
 	<script>
-		$(function(){
+		$(function() {
 			var varForm = $("#varForm");
 
-			$("#rev-post-btn").on("click", function (){
+			$("#rev-post-btn").on("click", function () {
 				doSubmit(varForm, {action: "showPostRevisingForm"})
 			});
 
@@ -72,7 +78,20 @@
 				varForm.children("input[name=postNo]").remove();
 				doSubmit(varForm, {action: "showPostList"});
 			});
-		});
+		}); 
+
+		$(getReplyList());
+
+		function getReplyList() {
+			$.getJSON("<c:url value='/reply/getAllReplyList/${postVo.postNo}/1'/>", function(data) {
+				var str = "";
+				$(data.replyVoList).each(function() {
+					str += "<li class='list-group-item'>" + this.replyText + ": " + this.replyWriter + "<button type='button' class='btn btn-primary btn-xs pull-right'>Primary</button></li>";
+				});
+
+				$("#reply-list").html(str);
+			});
+		}
 	</script>
 </body>
 
