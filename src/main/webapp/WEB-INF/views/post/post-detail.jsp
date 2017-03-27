@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css"/>"/>
 	<script src="<c:url value="/webjars/jquery/3.2.0/dist/jquery.min.js"/>"></script>
 	<script src="<c:url value="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/webjars/handlebars/4.0.5/handlebars.min.js"/>"></script>
 
 	<script src="<c:url value='/resources/js/move.js'/>"></script>
 </head>
@@ -76,7 +77,7 @@
 		<input type="hidden" name="searchKeyword" value="${postPageCriteria.searchKeyword}"/>
 	</form>
 
-	<script>
+	<script defer="defer">
 		$(function () {
 			var varForm = $("#varForm");
 
@@ -96,19 +97,31 @@
 			});
 		});
 
-		$(getAllReplyList());
+		$(function() {
+			getAllReplyList(1);
+		});
+	</script>
 
+	<script id="reply-list-template" type="text/x-handlebars-template">
+		{{#each .}}
+		<li data-replyNo={{replyNo}} class='list-group-item'>
+			{{replyText}}: {{replyWriter}}
+			<button type='button' class='btn btn-primary btn-xs pull-right'>delete</button>
+		</li>
+		{{/each}}
+	</script>
+
+	<script>
 		function getAllReplyList(pageNo) {
-			pageNo = (pageNo == undefined ? 1 : pageNo);
-
 			$.getJSON("<c:url value='/reply/list/${postVo.postNo}/" + pageNo + "'/>", function (result) {
-				var str = "";
+				var template = Handlebars.compile($("#reply-list-template").html());
+				var data = [];
+
 				$(result.replyVoList).each(function () {
-					str += "<li data-replyNo='" + this.replyNo + "' class='list-group-item'>" + this.replyText + ": " + this.replyWriter
-						+ "<button type='button' class='btn btn-primary btn-xs pull-right'>delete</button></li>";
+					data.push({replyNo: this.replyNo, replyText: this.replyText, replyWriter: this.replyWriter});
 				});
 
-				$("#reply-list").html(str);
+				$("#reply-list").html(template(data));
 
 				makeReplyPagination(result.pageMaker);
 			});
