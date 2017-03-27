@@ -24,26 +24,26 @@ public class ReplyController {
 	@Inject
 	private ReplyService replyService;
 
-	@RequestMapping(value = "getAllReplyList/{postNo}/{pageNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "list/{postNo}/{pageNo}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getAllReplyList(@PathVariable int postNo, @PathVariable int pageNo) {
-		Map<String, Object> resultMap = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 
 		PageCriteria pageCriteria = new PageCriteria(pageNo);
-		resultMap.put("replyVoList", replyService.getAllReplyList(postNo, pageCriteria));
-		resultMap.put("pageMaker", new PageMaker(pageCriteria, replyService.countAllReplies(postNo)));
+		result.put("replyVoList", replyService.getAllReplyList(postNo, pageCriteria));
+		result.put("pageMaker", new PageMaker(pageCriteria, replyService.countAllReplies(postNo)));
 
-		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "writeReply", method = RequestMethod.POST)
+	@RequestMapping(value = "write", method = RequestMethod.POST)
 	public ResponseEntity<String> writeReply(@RequestBody ReplyVo replyVo) {
 		replyService.writeReply(replyVo);
 		return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "reviseReply", method = { RequestMethod.PUT, RequestMethod.PATCH })
-	public ResponseEntity<String> reviseReply(@RequestBody ReplyVo replyVo) {
-		replyService.reviseReply(replyVo);
+	@RequestMapping(value = "delete/{replyNo}", method = { RequestMethod.DELETE })
+	public ResponseEntity<String> reviseReply(@PathVariable int replyNo) {
+		replyService.deleteReply(replyNo);
 		return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 	}
 }
