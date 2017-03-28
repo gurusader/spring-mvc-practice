@@ -26,18 +26,21 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<header>
-					<nav class="navbar navbar-inverse">
-						<div class="container-fluid">
-							<ul class="nav navbar-nav pull-right">
-								<li><a href="member/showLoginForm">${sessionScope.login eq null ? "Log In" : "Log Out"}</a></li>
-							</ul>
-						</div>
-					</nav>
-
-					<h3>main</h3>
+					<h3>login</h3>
 				</header>
 
-				<a href="post/showPostList">show post list</a><br/>
+				<form action="<c:url value='/member/login'/>" method="post">
+					<div class="form-group">
+						<label>ID<input type="text" name="memberId" class="form-control"/></label>
+					</div>
+
+					<div class="form-group">
+						<label>PASSWORD<input type="text" name="memberPassword" class="form-control"/></label>
+					</div>
+
+					<button type="submit" class="btn btn-primary">submit</button>
+					<button type="button" id="cancel-btn" class="btn btn-warning">cancel</button>
+				</form>
 			</div>
 		</div>
 	</div>

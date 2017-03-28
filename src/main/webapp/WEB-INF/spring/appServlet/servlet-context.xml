@@ -31,5 +31,20 @@
 
 	<view-controller path="/" view-name="main"/>
 
+	<beans:bean id="loginInterceptor" class="com.gurusader.springmvc.interceptor.LoginInterceptor"/>
+	<beans:bean id="authorityInterceptor" class="com.gurusader.springmvc.interceptor.AuthorityInterceptor"/>
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/login"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+
+		<interceptor>
+			<mapping path="/post/writePost"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+	</interceptors>
+
 	<context:component-scan base-package="com.gurusader.springmvc"/>
 </beans:beans>
