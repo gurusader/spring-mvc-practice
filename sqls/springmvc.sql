@@ -26,6 +26,13 @@ CREATE TABLE reply (
 	replyRevDate TIMESTAMP       DEFAULT now()
 );
 
+#################### Member Table ####################
+CREATE TABLE member (
+	memberId       VARCHAR(50) PRIMARY KEY,
+	memberPassword VARCHAR(50)  NOT NULL,
+	memberEmail    VARCHAR(100) NOT NULL UNIQUE
+);
+
 ############################## Test Queries ##############################
 
 #################### Post Table ####################
@@ -62,35 +69,52 @@ INSERT INTO reply (postNo, replyText, replyWriter)
 SELECT *
 FROM reply;
 
+#################### Member Table ####################
+INSERT INTO member (userId, userPassword, userEmail)
+VALUES ("a", "a", "a@a.com");
+
+INSERT INTO member (userId, userPassword, userEmail)
+VALUES ("b", "b", "b@b.com");
+
+INSERT INTO member (userId, userPassword, userEmail)
+VALUES ("c", "c", "c@c.com");
+
+SELECT *
+FROM member;
+
 ############################## MyBatis Queries ##############################
 
 #################### Post Table ####################
-# writePost
-INSERT INTO post (postTitle, postText, postWriter)
-VALUES (?, ?, ?);
-
-# getPostList
+# getAllPostList
 SELECT *
 FROM post
 ORDER BY postNo DESC
 LIMIT ?, ?;
 
-# getSearchList
+# countAllPosts
+SELECT count(postNo)
+FROM post;
+
+# getSearchPostList
 SELECT *
 FROM post
 WHERE postNo > 0 AND postTitle LIKE concat('%', ?, '%')
 ORDER BY postNo DESC
 LIMIT ?, ?;
 
+# countSearchPosts
+SELECT count(postNo)
+FROM post
+WHERE postNo > 0 AND postTitle LIKE concat('%', ?, '%');
+
 # getPost
 SELECT *
 FROM post
 WHERE postNo = ?;
 
-# plusViewCount
-UPDATE post
-SET postViewCnt = postViewCnt + 1
-WHERE postNo = ?;
+# writePost
+INSERT INTO post (postTitle, postText, postWriter)
+VALUES (?, ?, ?);
 
 # revisePost
 UPDATE post
@@ -101,21 +125,22 @@ WHERE postNo = ?;
 DELETE FROM post
 WHERE postNo = ?;
 
-# countTotalPosts
-SELECT count(postNo)
-FROM post;
-
-# countTotalSearch
-SELECT count(postNo)
-FROM post
-WHERE postNo > 0 AND postTitle LIKE concat('%', ?, '%');
+# plusViewCount
+UPDATE post
+SET postViewCnt = postViewCnt + 1
+WHERE postNo = ?;
 
 #################### Reply Table ####################
-# getReplyList
+# getAllReplyList
 SELECT *
 FROM reply
 WHERE postNo = ?
 ORDER BY replyNo DESC;
+
+# countAllReplies
+SELECT count(replyNo)
+FROM reply
+WHERE postNo = ?
 
 # writeReply
 INSERT INTO reply (postNo, replyText, replyWriter)
@@ -123,9 +148,11 @@ VALUES (?, ?, ?);
 
 # reviseReply
 UPDATE reply
-SET replyText = ?
+SET replyText = ?, replyRevDate = ?
 WHERE replyNo = ?;
 
 # deleteReply
 DELETE FROM reply
 WHERE replyNo = ?;
+
+#################### Member Table ####################
