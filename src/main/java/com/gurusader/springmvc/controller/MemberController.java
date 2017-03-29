@@ -1,6 +1,7 @@
 package com.gurusader.springmvc.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,5 +30,15 @@ public class MemberController {
 		if (memberVo != null) {
 			model.addAttribute("memberVo", memberVo);
 		}
+	}
+
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		if (session.getAttribute("loginMember") != null) {
+			session.removeAttribute("loginMember");
+			session.invalidate();
+		}
+
+		return "redirect:/";
 	}
 }

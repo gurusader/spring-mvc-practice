@@ -13,8 +13,8 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 
-		if (session.getAttribute("login") == null) {
-			response.sendRedirect(request.getContextPath());
+		if (session.getAttribute("loginMember") == null) {
+			response.sendRedirect(request.getContextPath() + "/member/showLoginForm");
 			goNext = false;
 		}
 
