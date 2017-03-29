@@ -1,77 +1,44 @@
-<%@ page pageEncoding="utf-8" %>
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ include file="../include/header.jsp" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-	<title>post revising form</title>
-
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-	<link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css"/>"/>
-	<script src="<c:url value="/webjars/jquery/3.2.0/dist/jquery.min.js"/>"></script>
-	<script src="<c:url value="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js"/>"></script>
-
-	<script src="<c:url value='/resources/js/move.js'/>"></script>
-</head>
-
-<body>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<header>
-					<h3>post revising form</h3>
-				</header>
-
-				<form id="revising-form">
-					<div class="form-group">
-						<label>writer<input type="text" name="postWriter" class="form-control" value="${postVo.postWriter}" readonly="readonly"/></label>
-					</div>
-
-					<div class="form-group">
-						<label>title<input type="text" name="postTitle" class="form-control" value="${postVo.postTitle}"/></label>
-					</div>
-
-					<div class="form-group">
-						<label>text<textarea name="postText" rows="3" class="form-control">${postVo.postText}</textarea></label>
-					</div>
-
-					<button type="button" id="submit-btn" class="btn btn-primary">submit</button>
-					<button type="button" id="cancel-btn" class="btn btn-warning">cancel</button>
-				</form>
-			</div>
-		</div>
+<form id="revising-form">
+	<div class="form-group">
+		<label>writer<input type="text" name="postWriter" class="form-control" value="${postVo.postWriter}" readonly="readonly"/></label>
 	</div>
 
-	<form id="var-form">
-		<input type="hidden" name="postNo" value="${postVo.postNo}"/>
-		<input type="hidden" name="currentPageNo" value="${postPageCriteria.currentPageNo}"/>
-		<input type="hidden" name="contentsPerPage" value="${postPageCriteria.contentsPerPage}"/>
-		<input type="hidden" name="searchType" value="${postPageCriteria.searchType}"/>
-		<input type="hidden" name="searchKeyword" value="${postPageCriteria.searchKeyword}"/>
-	</form>
+	<div class="form-group">
+		<label>title<input type="text" name="postTitle" class="form-control" value="${postVo.postTitle}"/></label>
+	</div>
 
-	<script>
-		$(function() {
-			var varForm = $("#var-form");
+	<div class="form-group">
+		<label>text<textarea name="postText" rows="3" class="form-control">${postVo.postText}</textarea></label>
+	</div>
 
-			$("#submit-btn").on("click", function() {
-				var revisingForm = $("#revising-form");
-				varForm.children().appendTo(revisingForm);
-				doSubmit(revisingForm, {action: "revisePost", method: "post"});
-			});
+	<button type="button" id="submit-btn" class="btn btn-primary">submit</button>
+	<button type="button" id="cancel-btn" class="btn btn-warning">cancel</button>
+</form>
 
-			$("#cancel-btn").on("click", function() {
-				doSubmit(varForm, {action : "showPostDetail"});
-			});
+<form id="var-form">
+	<input type="hidden" name="postNo" value="${postVo.postNo}"/>
+	<input type="hidden" name="currentPageNo" value="${postPageCriteria.currentPageNo}"/>
+	<input type="hidden" name="contentsPerPage" value="${postPageCriteria.contentsPerPage}"/>
+	<input type="hidden" name="searchType" value="${postPageCriteria.searchType}"/>
+	<input type="hidden" name="searchKeyword" value="${postPageCriteria.searchKeyword}"/>
+</form>
+
+<script>
+	$(function() {
+		var varForm = $("#var-form");
+
+		$("#submit-btn").on("click", function() {
+			var revisingForm = $("#revising-form");
+			varForm.children().appendTo(revisingForm);
+			doSubmit(revisingForm, {action: "revisePost", method: "post"});
 		});
-	</script>
-</body>
 
-</html>
+		$("#cancel-btn").on("click", function() {
+			doSubmit(varForm, {action : "showPostDetail"});
+		});
+	});
+</script>
+
+<%@ include file="../include/footer.jsp" %>
