@@ -2,8 +2,8 @@ package com.gurusader.springmvc.persistence;
 
 import java.util.List;
 
-import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.PostVo;
+import com.gurusader.springmvc.utility.PageCriteria;
 
 public interface PostDao {
 	List<PostVo> getAllPostList(PageCriteria pageCriteria);

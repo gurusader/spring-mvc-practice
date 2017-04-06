@@ -6,9 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.ReplyVo;
 import com.gurusader.springmvc.persistence.ReplyDao;
+import com.gurusader.springmvc.utility.PageCriteria;
 
 @Service
 public class ReplyServiceImplement implements ReplyService {

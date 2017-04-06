@@ -1,4 +1,4 @@
-package com.gurusader.springmvc.domain;
+package com.gurusader.springmvc.utility;
 
 public class PageMaker {
 	private static final int PAGES_PER_PAGINATION = 10;

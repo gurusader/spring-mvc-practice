@@ -2,8 +2,8 @@ package com.gurusader.springmvc.service;
 
 import java.util.List;
 
-import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.ReplyVo;
+import com.gurusader.springmvc.utility.PageCriteria;
 
 public interface ReplyService {
 	List<ReplyVo> getAllReplyList(int postNo, PageCriteria pageCriteria);

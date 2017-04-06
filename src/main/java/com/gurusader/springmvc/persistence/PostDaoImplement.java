@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.gurusader.springmvc.domain.PageCriteria;
 import com.gurusader.springmvc.domain.PostVo;
+import com.gurusader.springmvc.utility.PageCriteria;
 
 @Repository
 public class PostDaoImplement implements PostDao {

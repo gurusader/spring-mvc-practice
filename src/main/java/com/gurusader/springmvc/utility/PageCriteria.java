@@ -1,4 +1,4 @@
-package com.gurusader.springmvc.domain;
+package com.gurusader.springmvc.utility;
 
 public class PageCriteria {
 	private static final int DEFAULT_PAGE_NO = 1;

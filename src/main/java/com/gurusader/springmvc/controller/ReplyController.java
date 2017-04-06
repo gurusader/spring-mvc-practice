@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gurusader.springmvc.domain.PageCriteria;
-import com.gurusader.springmvc.domain.PageMaker;
 import com.gurusader.springmvc.domain.ReplyVo;
 import com.gurusader.springmvc.service.ReplyService;
+import com.gurusader.springmvc.utility.PageCriteria;
+import com.gurusader.springmvc.utility.PageMaker;
 
 @RestController
 @RequestMapping("reply/")

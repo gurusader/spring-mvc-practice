@@ -1,4 +1,4 @@
-package com.gurusader.springmvc.domain;
+package com.gurusader.springmvc.utility;
 
 public class PostPageCriteria extends PageCriteria {
 	private String searchType;
